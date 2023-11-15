@@ -1,8 +1,9 @@
 const axios = require("axios");
 const { PrismaClient } = require("@prisma/client");
+const { env } = require("process");
 
 const prisma = new PrismaClient();
-const apiKey = "1daeee0cfbc9e0c15da63dd13684384f";
+const apiKey = env("X_ELS_APIKey");
 
 const headers = {
   Accept: "application/json",
