@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // provider = "postgres"
+  provider = "sqlite"
+
+  url = env("DATABASE_URL")
+}
+
+// schema.prisma
+
+// Define the ScopusEntry model
+model ScopusEntry {
+  id                   Int       @id @default(autoincrement())
+  scopusId             String?
+  title                String?
+  creatorGivenName     String?
+  creatorSurname       String?
+  creatorInitials      String?
+  creatorIndexedName   String?
+  creator              String?
+  coverDate            DateTime?
+  doi                  String?
+  pii                  String?
+  citedByCount         Int?
+  aggregationType      String?
+  subtype              String?
+  subtypeDescription   String?
+  articleNumber        String?
+  sourceId             String?
+  openaccess           Int?
+  openaccessFlag       Boolean?
+  publicationName      String?
+  issn                 String?
+  volume               String?
+  prismUrl             String?
+  scopusUrl            String?
+  scopusCitedByUrl     String?
+  eid                  String?
+  srctype              String?
+  prismCoverDate       String?
+  prismAggregationType String?
+  dcPublisher          String?
+  prismIssn            String?
+  dcIdentifier         String?
+  pageRange            String?
+
+  affiliations Affiliation[]
+}
+
+model Affiliation {
+  id                 Int     @id @default(autoincrement())
+  affilname          String?
+  affiliationCity    String?
+  affiliationCountry String?
+
+  scopusEntry   ScopusEntry? @relation(fields: [scopusEntryId], references: [id])
+  scopusEntryId Int?
+}
